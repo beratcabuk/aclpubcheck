@@ -1,22 +1,16 @@
 # This workflow will install Python dependencies, run tests and lint with a single version of Python
 # For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-python
-
 name: Python application
-
 on:
   push:
     branches: [ "main" ]
   pull_request:
     branches: [ "main" ]
-
 permissions:
   contents: read
-
 jobs:
   build:
-
     runs-on: ubuntu-latest
-
     steps:
     - uses: actions/checkout@v4
     - name: Set up Python 3.10
@@ -27,16 +21,10 @@ jobs:
       run: |
         python -m pip install --upgrade pip
         # Install linting and testing tools
-        pip install flake8 pytest
+        pip install flake8 pytest pytest-cov
         # Install the current package and its dependencies from setup.py
         # The -e flag installs it in "editable" mode, which is useful for development and testing
         pip install -e .
-        # The following line for requirements.txt can be kept if it serves a purpose beyond
-        # what setup.py's install_requires and the direct flake8/pytest installs cover
-        # (e.g., other development tools, or pinned versions for a specific dev environment).
-        # If requirements.txt was only duplicating install_requires, this line might no longer be needed
-        # for the core package dependencies.
-        # if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
     - name: Lint with flake8
       run: |
         # stop the build if there are Python syntax errors or undefined names
@@ -45,4 +33,4 @@ jobs:
         flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
     - name: Test with pytest
       run: |
-        pytest
+        pytest --cov=. --cov-report=term-missing
