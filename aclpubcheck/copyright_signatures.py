@@ -2,7 +2,6 @@ import argparse
 import textwrap
 import pandas as pd
 
-#@sartor-bot
 #test
 def write_copyright_signatures(submissions_path):
 
