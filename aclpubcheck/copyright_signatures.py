@@ -2,7 +2,7 @@ import argparse
 import textwrap
 import pandas as pd
 
-
+#@sartor-bot
 def write_copyright_signatures(submissions_path):
 
     def clean_str(value):
